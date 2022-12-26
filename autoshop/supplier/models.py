@@ -1,12 +1,13 @@
 from django.db import models
 from django_countries.fields import CountryField
 
+from core.abstract_models import AbstractDefaultModels
 from core.enams.supplier_enums import SexOfSupplier
 from core.validators import check_age
 
 
 # Create your models here.
-class Supplier(models.Model):
+class Supplier(AbstractDefaultModels):
     name = models.CharField(max_length=255)
     location = CountryField()
     email = models.EmailField()
@@ -26,7 +27,7 @@ class Supplier(models.Model):
         return self.name
 
 
-class Founder(models.Model):
+class Founder(AbstractDefaultModels):
     first_name = models.CharField(max_length=255)
     second_name = models.CharField(max_length=255)
     age = models.IntegerField(validators=[check_age], default=25)

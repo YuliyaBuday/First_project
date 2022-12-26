@@ -15,7 +15,7 @@ class CarAdmin(admin.ModelAdmin):
     list_display = ['title', 'price', 'currency', 'cat']
     ordering = ['title']
     search_fields = ['title__istartswith']
-    actions = ['change_to_euro', 'change_to_dollars','change_to_rubles']
+    actions = ['change_to_euro', 'change_to_dollars','change_to_rubles', 'change_price']
 
 
     @admin.action(description=' Изменить валюту избранных элементов на евро')
@@ -42,6 +42,15 @@ class CarAdmin(admin.ModelAdmin):
         self.message_user(
             request,
             f'Обновлено {updates_cars} записей',
+            messages.SUCCESS
+        )
+
+    @admin.action(description=' Изменить цену у всех выбранных объектов на 5000')
+    def change_price(self, request, qs: QuerySet):
+        updates_price = qs.update(price=5000)
+        self.message_user(
+            request,
+            f'Обновлено {updates_price} записей',
             messages.SUCCESS
         )
 

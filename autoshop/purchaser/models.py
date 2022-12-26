@@ -1,6 +1,6 @@
 from django.db import models
 
-from core.abstract_models import BaseModel
+from core.abstract_models import AbstractDefaultModels
 from core.enams.purchaser_enums import SexOfPurchaser
 from core.validators import check_phonenum
 
@@ -8,7 +8,7 @@ from core.validators import check_phonenum
 # Create your models here.
 
 
-class Purchaser(models.Model):
+class Purchaser(AbstractDefaultModels):
     first_name = models.CharField(max_length=255)
     second_name = models.CharField(max_length=255)
     sex = models.CharField(
@@ -32,7 +32,7 @@ class Purchaser(models.Model):
         return self.first_name
 
 
-class Balance(models.Model):
+class Balance(AbstractDefaultModels):
     value = models.DecimalField(max_digits=5, decimal_places=2)
     purchaser = models.ForeignKey(
         Purchaser,

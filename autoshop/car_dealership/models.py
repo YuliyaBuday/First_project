@@ -1,13 +1,13 @@
 from django.db import models
 
-from core.abstract_models import BaseModel
+from core.abstract_models import AbstractDefaultModels
 from core.enams.car_dealership_enums import Currency, StatusOfCar
 from core.validators import check_raiting
 from django_countries.fields import CountryField
 
 
 # Create your models here.
-class Car(models.Model):
+class Car(AbstractDefaultModels):
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True)
     year = models.IntegerField()
@@ -39,7 +39,7 @@ class Car(models.Model):
         return self.title
 
 
-class Category(models.Model):
+class Category(AbstractDefaultModels):
     name = models.CharField(max_length=255)
 
     class Meta:
@@ -51,7 +51,7 @@ class Category(models.Model):
         return self.name
 
 
-class Raiting(models.Model):
+class Raiting(AbstractDefaultModels):
     value = models.IntegerField(validators=[check_raiting], default=1)
     cars = models.ForeignKey(
         Car,
@@ -66,7 +66,7 @@ class Raiting(models.Model):
 
 
 
-class Car_dealership(models.Model):
+class Car_dealership(AbstractDefaultModels):
     name = models.CharField(max_length=255)
     characteristic = models.TextField(blank=True)
     location = CountryField()
